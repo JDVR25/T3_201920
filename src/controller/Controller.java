@@ -35,67 +35,59 @@ public class Controller {
 
 			int option = lector.nextInt();
 			switch(option){
-				case 1:
-					System.out.println("--------- \nCrear Arreglo \nDar capacidad inicial del arreglo: ");
-				    int capacidad = lector.nextInt();
-				    modelo = new MVCModelo(capacidad); 
-					System.out.println("Arreglo Dinamico creado");
-					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+			case 1:
+				System.out.println("--------- \nSe cargaran los datos: ");
+				modelo = new MVCModelo(); 
+				modelo.cargarDatos();
+				System.out.println("Datos cargados");
+				System.out.println("Numero de viajes cargados: " );
+				break;
 
-				case 2:
-					System.out.println("--------- \nDar cadena (simple) a ingresar: ");
-					dato = lector.next();
-					modelo.agregar(dato);
-					System.out.println("Dato agregado");
-					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+			case 2:
+				//TODO pendiente
+				break;
 
-				case 3:
-					System.out.println("--------- \nDar cadena (simple) a buscar: ");
-					dato = lector.next();
-					respuesta = modelo.buscar(dato);
-					if ( respuesta != null)
-					{
-						System.out.println("Dato encontrado: "+ respuesta);
-					}
-					else
-					{
-						System.out.println("Dato NO encontrado");
-					}
-					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+			case 3:
+				//TODO pendiente
+				break;
+				
+			case 4: 
+				//TODO pendiente
+				break;
+				
+			case 5: 
+				//TODO pendiente
+				break;
+				
+			case 6: 
+				//TODO pendiente
+				break;
+				
+			case 7: 
+				//TODO pendiente
+				break;
+				
+			case 8: 
+				//TODO pendiente
+				break;
+				
+			case 9: 
+				//TODO pendiente
+				break;
+				
+			case 10: 
+				//TODO pendiente
+				break;
 
-				case 4:
-					System.out.println("--------- \nDar cadena (simple) a eliminar: ");
-					dato = lector.next();
-					respuesta = modelo.eliminar(dato);
-					if ( respuesta != null)
-					{
-						System.out.println("Dato eliminado "+ respuesta);
-					}
-					else
-					{
-						System.out.println("Dato NO eliminado");							
-					}
-					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;
+			case 11: 
+				System.out.println("--------- \n Hasta pronto !! \n---------"); 
+				lector.close();
+				fin = true;
+				break; 
 
-				case 5: 
-					System.out.println("--------- \nContenido del Arreglo: ");
-					view.printModelo(modelo);
-					System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
-					break;	
-					
-				case 6: 
-					System.out.println("--------- \n Hasta pronto !! \n---------"); 
-					lector.close();
-					fin = true;
-					break;	
-
-				default: 
-					System.out.println("--------- \n Opcion Invalida !! \n---------");
-					break;
+			default: 
+				System.out.println("--------- \n Opcion Invalida !! \n---------");
+				break;
 			}
 		}
 		
