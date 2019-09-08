@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ListaSencillamenteEncadenada<E> extends ListaEncadenadaAbstracta<E>
+public class ListaSencillamenteEncadenada<E extends Comparable<E>> extends ListaEncadenadaAbstracta<E>
 {
 
 	/**
@@ -203,10 +203,27 @@ public class ListaSencillamenteEncadenada<E> extends ListaEncadenadaAbstracta<E>
 	}
 
 	@Override
-	public int indexOf(E element) 
+	public int indexOf(E o) 
 	{
-		//TODO Pendiente
-		return 0;
+		int posicion = -1;
+		Nodo<E> actual = primerNodo;
+		int posActual = 0;
+		boolean listo = false;
+		while(actual != null && !listo)
+		{
+			if(actual.darElemento().equals((o)))
+			{
+				posicion = posActual;
+				listo = true;
+			}
+			else
+			{
+				posActual ++;
+				actual = actual.darSiguiente();
+			}
+		}
+
+		return posicion;
 	}
 
 	/**

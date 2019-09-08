@@ -1,19 +1,14 @@
 package model.data_structures;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 /**
  * Clase que contiene lo com�n entre las listas encadenadas.
  * @param <E> Elemento que se almacenar� en la lista, el elemento debe ser �nicamente identificado.
  */
-public abstract class ListaEncadenadaAbstracta<E> implements IEstructura<E>, Serializable
+public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implements IEstructura<E>
 {
 
-	/**
-	 * Constante de serializaci�n.
-	 */
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Atributo que indica la cantidad de elementos que han sido almacenados en la lista.
@@ -106,6 +101,16 @@ public abstract class ListaEncadenadaAbstracta<E> implements IEstructura<E>, Ser
 		}
 
 		return retornar;
+	}
+	
+	public E getFirst()
+	{
+		return primerNodo.darElemento();
+	}
+	
+	public E getLast()
+	{
+		return ultimoNodo.darElemento();
 	}
 
 	/**
