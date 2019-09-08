@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.opencsv.CSVReader;
 import model.data_structures.IEstructura;
 import model.data_structures.ListaSencillamenteEncadenada;
+import model.data_structures.Nodo;
 
 /**
  * Definicion del modelo del mundo
@@ -68,43 +69,100 @@ public class MVCModelo {
 
 		}
 	}
-	
+
 	public int darNumViajes()
 	{
 		return horas.size();
 	}
-	
+
 	public UBERTrip darPrimerViaje()
 	{
 		return horas.getFirst();
 	}
-	
+
 	public UBERTrip darUltimoViaje()
 	{
 		return horas.getLast();
 	}
-	
+
 	public ListaSencillamenteEncadenada<UBERTrip> consultarViajesSegunHora(int hour)
 	{
 		ListaSencillamenteEncadenada<UBERTrip> respuesta = new ListaSencillamenteEncadenada<UBERTrip>();
+
+		for(UBERTrip temp: horas)
+		{
+			if(temp.darHoraOMesODia() == hour)
+			{
+				respuesta.addLast(temp);
+			}
+		}
+
 		return respuesta;
 	}
-	
+
 	public double ordenarShellSort(ListaSencillamenteEncadenada<UBERTrip> lista)
 	{
-		int tiempo = 0;
+		double tiempo = 0;
+		//Medicion del tiempo
+		long tInicial = System.currentTimeMillis();
+
+		//Aqui poner el ordenamiento
+		int cantElementos = darNumViajes();
+		int n = 1;
+		while(n > cantElementos/3)
+			n = (3*n) +1;
+		while(n >= 1)
+		{
+			for(int i = n; i < cantElementos; i++)
+			{
+				boolean listo = false;
+				for(int j = i; j >= 0 && !listo; j -=n)
+				{
+					Nodo<UBERTrip> nodo1 = horas.darNodo(j);
+					Nodo<UBERTrip> nodo2 = horas.darNodo(j-n);
+					if(nodo1.darElemento().compareTo(nodo2.darElemento()) < 0)
+					{
+						UBERTrip temp = nodo1.darElemento();
+						nodo1.cambiarElemento(nodo2.darElemento());
+						nodo2.cambiarElemento(temp);
+					}
+					else
+					{
+						listo = true;
+					}
+				}
+			}
+			n = (n-1)/3;
+		}
+
+		long tFinal = System.currentTimeMillis();
+		tiempo = tFinal - tInicial;
 		return tiempo;
 	}
-	
+
 	public double ordenarMergeSort(ListaSencillamenteEncadenada<UBERTrip> lista)
 	{
-		int tiempo = 0;
+		double tiempo = 0;
+		//Medicion del tiempo
+		long tInicial = System.currentTimeMillis();
+
+		//Aqui poner el ordenamiento
+
+		long tFinal = System.currentTimeMillis();
+		tiempo = tFinal - tInicial;
 		return tiempo;
 	}
-	
+
 	public double ordenarQuickSort(ListaSencillamenteEncadenada<UBERTrip> lista)
 	{
-		int tiempo = 0;
+		double tiempo = 0;
+		//Medicion del tiempo
+		long tInicial = System.currentTimeMillis();
+
+		//Aqui poner el ordenamiento
+
+		long tFinal = System.currentTimeMillis();
+		tiempo = tFinal - tInicial;
 		return tiempo;
 	}
 }
