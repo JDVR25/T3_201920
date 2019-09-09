@@ -19,7 +19,7 @@ public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implemen
 	 * Primer nodo de la lista.
 	 */
 	protected Nodo<E> primerNodo;
-	
+
 	protected Nodo<E> ultimoNodo;
 
 	@SuppressWarnings("unchecked")
@@ -37,7 +37,7 @@ public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implemen
 
 		return arreglo;
 	}
-	
+
 	@Override
 	public int size() 
 	{
@@ -102,12 +102,12 @@ public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implemen
 
 		return retornar;
 	}
-	
+
 	public E getFirst()
 	{
 		return primerNodo.darElemento();
 	}
-	
+
 	public E getLast()
 	{
 		return ultimoNodo.darElemento();
@@ -121,17 +121,24 @@ public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implemen
 	 */
 	public Nodo<E> darNodo(int index)
 	{
-		if(index < 0 || index > cantidadElementos)
+		if(index < 0 || index >= cantidadElementos)
 		{
 			throw new IndexOutOfBoundsException("Se est� pidiendo el indice: " + index + " y el tama�o de la lista es de " + cantidadElementos);
 		}
 
 		Nodo<E> actual = primerNodo;
-		int posActual = 0;
-		while(actual != null && posActual < index)
+		if(index == cantidadElementos - 1)
 		{
-			actual = actual.darSiguiente();
-			posActual ++;
+			actual = ultimoNodo;
+		}
+		else
+		{
+			int posActual = 0;
+			while(actual != null && posActual < index)
+			{
+				actual = actual.darSiguiente();
+				posActual ++;
+			}
 		}
 
 		return actual;
@@ -165,7 +172,18 @@ public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implemen
 		primerNodo = null;
 		cantidadElementos = 0;
 	}
-	
-	
+
+	//Solo funciona si el ultimo nodo permanece igual
+	public void cambiarPrimero(Nodo<E> nPrimero)
+	{
+		primerNodo = nPrimero;
+	}
+
+	//Solo funciona si el primer nodo permanece igual
+	public void cambiarUltimo(Nodo<E> nUltimo)
+	{
+		ultimoNodo = nUltimo;
+	}
+
 	//Codigo basado en lo desarrollado en el ejercicio de nivel 9 de APO 2 (Honores) 201910
 }

@@ -107,7 +107,7 @@ public class MVCModelo {
 		long tInicial = System.currentTimeMillis();
 
 		//Aqui poner el ordenamiento
-		int cantElementos = darNumViajes();
+		int cantElementos = lista.size();
 		int n = 1;
 		while(n > cantElementos/3)
 			n = (3*n) +1;
@@ -118,8 +118,8 @@ public class MVCModelo {
 				boolean listo = false;
 				for(int j = i; j >= 0 && !listo; j -=n)
 				{
-					Nodo<UBERTrip> nodo1 = horas.darNodo(j);
-					Nodo<UBERTrip> nodo2 = horas.darNodo(j-n);
+					Nodo<UBERTrip> nodo1 = lista.darNodo(j);
+					Nodo<UBERTrip> nodo2 = lista.darNodo(j-n);
 					if(nodo1.darElemento().compareTo(nodo2.darElemento()) < 0)
 					{
 						UBERTrip temp = nodo1.darElemento();
@@ -147,10 +147,90 @@ public class MVCModelo {
 		long tInicial = System.currentTimeMillis();
 
 		//Aqui poner el ordenamiento
+		mergeSort(lista, 0, lista.size() - 1);
 
 		long tFinal = System.currentTimeMillis();
 		tiempo = tFinal - tInicial;
 		return tiempo;
+	}
+	
+	public void mergeSort(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int last)
+	{
+		if(inicio < last)
+		{
+			int mitad = inicio + ((last - inicio) / 2);
+			mergeSort(lista, inicio, mitad);
+			mergeSort(lista, mitad + 1, last);
+			merge(lista, inicio, mitad, last);
+		}
+	}
+	
+	public void merge(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int midle, int last)
+	{
+		ListaSencillamenteEncadenada<UBERTrip> aux = new ListaSencillamenteEncadenada<UBERTrip>();
+		Nodo<UBERTrip> previous = null;
+		Nodo<UBERTrip> firstPart = null;
+		if(inicio != 0)
+		{
+			previous = lista.darNodo(inicio - 1);
+			firstPart = previous.darSiguiente();
+		}
+		else
+		{
+			firstPart = lista.darNodo(inicio);
+		}
+		Nodo<UBERTrip> secondPart = lista.darNodo(midle + 1);
+		int i = inicio;
+		int m = midle + 1;
+		while(i <= midle && m <= last)
+		{
+			if(firstPart.darElemento().compareTo(secondPart.darElemento()) < 0)
+			{
+				aux.addLast(firstPart.darElemento());
+				firstPart = firstPart.darSiguiente();
+				i++;
+			}
+			else
+			{
+				aux.addLast(secondPart.darElemento());
+				secondPart = secondPart.darSiguiente();
+				m++;
+			}
+		}
+		if(i <= midle)
+		{
+			while(i <= midle)
+			{
+				aux.addLast(firstPart.darElemento());
+				firstPart = firstPart.darSiguiente();
+				i++;
+			}
+		}
+		if(m <= last)
+		{
+			while(m <= last)
+			{
+				aux.addLast(secondPart.darElemento());
+				secondPart = secondPart.darSiguiente();
+				m++;
+			}
+		}
+		if(inicio == 0)
+		{
+			lista.cambiarPrimero(aux.darNodo(0));
+		}
+		else
+		{
+			previous.cambiarSiguiente(aux.darNodo(0));
+		}
+		if(last == lista.size()-1)
+		{
+			lista.cambiarUltimo(aux.darNodo(aux.size()-1));
+		}
+		else
+		{
+			aux.darNodo(aux.size() - 1).cambiarSiguiente(secondPart.darSiguiente());
+		}
 	}
 
 	public double ordenarQuickSort(ListaSencillamenteEncadenada<UBERTrip> lista)
