@@ -216,10 +216,43 @@ public class MVCModelo {
 		//Medicion del tiempo
 		long tInicial = System.currentTimeMillis();
 
+		quickSort(lista, 0, lista.size()-1);
 		//Aqui poner el ordenamiento
 
 		long tFinal = System.currentTimeMillis();
 		tiempo = tFinal - tInicial;
 		return tiempo;
 	}
+	
+	public void quickSort(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int end)
+	{
+		 if (inicio < end)
+		    {
+		        int sort = sort(lista, inicio, end);
+
+		        quickSort(lista, inicio, sort - 1);  
+		        quickSort(lista, sort + 1, end); 
+		    }
+	}
+	
+	public int sort(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int end) 
+    { 
+        int pivot = end;  
+        int i = (inicio-1); // index of smaller element 
+        for (int j=inicio; j<end; j++) 
+        { 
+            if (lista.get(j).compareTo(lista.get(pivot)) >= 0) 
+            { 
+                i++; 
+  
+                UBERTrip temp = lista.get(i) ; 
+                lista.add(i, temp);
+                lista.add(j, lista.get(j));
+                
+            } 
+        } 
+        return i +1; 
+    }
 }
+	
+	// Basado en codigo de geeksforgeekds

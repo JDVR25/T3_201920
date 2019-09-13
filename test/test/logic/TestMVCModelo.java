@@ -92,22 +92,22 @@ public class TestMVCModelo {
 			temp = temp.darSiguiente();
 		}
 		
-//		temp = lista.darNodo(0);
-//		Collections.shuffle(baraja);
-//		for(int i = 0; i < baraja.size(); i++)
-//		{
-//			temp.cambiarElemento(baraja.get(i));
-//			System.out.println(temp.darElemento().darTiempoViaje());
-//			temp = temp.darSiguiente();
-//		}
-//		modelo.ordenarQuickSort(lista);
-//		temp = lista.darNodo(0);
-//		for(int i = 0; i < ascentente.size(); i++)
-//		{
-//			assertTrue("La lista no esta ordenada", ascentente.get(i).darTiempoViaje() == temp.darElemento().darTiempoViaje());
-//			
-//			temp = temp.darSiguiente();
-//		}
+		temp = lista.darNodo(0);
+		Collections.shuffle(baraja);
+		for(int i = 0; i < baraja.size(); i++)
+		{
+			temp.cambiarElemento(baraja.get(i));
+			System.out.println(temp.darElemento().darTiempoViaje());
+			temp = temp.darSiguiente();
+		}
+		modelo.ordenarQuickSort(lista);
+		temp = lista.darNodo(0);
+		for(int i = 0; i < ascentente.size(); i++)
+		{
+			assertTrue("La lista no esta ordenada", ascentente.get(i).darTiempoViaje() == temp.darElemento().darTiempoViaje());
+			
+			temp = temp.darSiguiente();
+		}
 		
 		temp = lista.darNodo(0);
 		Collections.shuffle(baraja);
