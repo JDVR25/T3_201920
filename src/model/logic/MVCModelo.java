@@ -109,14 +109,14 @@ public class MVCModelo {
 		//Aqui poner el ordenamiento
 		int cantElementos = lista.size();
 		int n = 1;
-		while(n > cantElementos/3)
+		while(n < cantElementos/3)
 			n = (3*n) +1;
 		while(n >= 1)
 		{
 			for(int i = n; i < cantElementos; i++)
 			{
 				boolean listo = false;
-				for(int j = i; j >= 0 && !listo; j -=n)
+				for(int j = i; j >= n && !listo; j -=n)
 				{
 					Nodo<UBERTrip> nodo1 = lista.darNodo(j);
 					Nodo<UBERTrip> nodo2 = lista.darNodo(j-n);
@@ -143,93 +143,70 @@ public class MVCModelo {
 	public double ordenarMergeSort(ListaSencillamenteEncadenada<UBERTrip> lista)
 	{
 		double tiempo = 0;
+		//Creacion del arreglo a ordenar, no cuenta como tiempo de ordenamiento
+		Object[] arreglo = lista.toArray();
+		Object[] aux = new Object[lista.size()];
 		//Medicion del tiempo
 		long tInicial = System.currentTimeMillis();
 
 		//Aqui poner el ordenamiento
-		mergeSort(lista, 0, lista.size() - 1);
+		mergeSort(arreglo, aux, 0, lista.size() -1);
 
 		long tFinal = System.currentTimeMillis();
+		//Guardado del arreglo ordenado, no cuenta como tiempo de ordenamiento
+		Nodo<UBERTrip> temp = lista.darNodo(0);
+		for(int i = 0; i < arreglo.length; i++)
+		{
+			temp.cambiarElemento((UBERTrip) arreglo[i]);
+			temp = temp.darSiguiente();
+		}
 		tiempo = tFinal - tInicial;
 		return tiempo;
 	}
 	
-	public void mergeSort(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int last)
+	public void mergeSort(Object[] arreglo, Object[] aux, int inicio, int last)
 	{
 		if(inicio < last)
 		{
-			int mitad = inicio + ((last - inicio) / 2);
-			mergeSort(lista, inicio, mitad);
-			mergeSort(lista, mitad + 1, last);
-			merge(lista, inicio, mitad, last);
+			int mitad = (inicio + last) / 2;
+			mergeSort(arreglo, aux, inicio, mitad);
+			mergeSort(arreglo, aux, mitad + 1, last);
+			merge(arreglo, aux, inicio, mitad, last);
 		}
 	}
 	
-	public void merge(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int midle, int last)
+	public void merge(Object[] arreglo, Object[] aux, int inicio, int midle, int last)
 	{
-		ListaSencillamenteEncadenada<UBERTrip> aux = new ListaSencillamenteEncadenada<UBERTrip>();
-		Nodo<UBERTrip> previous = null;
-		Nodo<UBERTrip> firstPart = null;
-		if(inicio != 0)
+		
+		for(int i = inicio; i <= last; i++)
 		{
-			previous = lista.darNodo(inicio - 1);
-			firstPart = previous.darSiguiente();
+			aux[i] = (UBERTrip) arreglo[i];
 		}
-		else
-		{
-			firstPart = lista.darNodo(inicio);
-		}
-		Nodo<UBERTrip> secondPart = lista.darNodo(midle + 1);
+		
 		int i = inicio;
-		int m = midle + 1;
-		while(i <= midle && m <= last)
+		int l = midle+1;
+		for(int pos = inicio; pos <= last; pos++)
 		{
-			if(firstPart.darElemento().compareTo(secondPart.darElemento()) < 0)
+			if(i > midle)
 			{
-				aux.addLast(firstPart.darElemento());
-				firstPart = firstPart.darSiguiente();
+				arreglo[pos] = aux[l];
+				l++;
+			}
+			else if(l > last)
+			{
+				arreglo[pos] = aux[i];
+				i++;
+			}
+			else if(((UBERTrip) aux[i]).compareTo((UBERTrip) aux[l]) < 0)
+			{
+				arreglo[pos] = aux[i];
 				i++;
 			}
 			else
 			{
-				aux.addLast(secondPart.darElemento());
-				secondPart = secondPart.darSiguiente();
-				m++;
+				arreglo[pos] = aux[l];
+				l++;
 			}
-		}
-		if(i <= midle)
-		{
-			while(i <= midle)
-			{
-				aux.addLast(firstPart.darElemento());
-				firstPart = firstPart.darSiguiente();
-				i++;
-			}
-		}
-		if(m <= last)
-		{
-			while(m <= last)
-			{
-				aux.addLast(secondPart.darElemento());
-				secondPart = secondPart.darSiguiente();
-				m++;
-			}
-		}
-		if(inicio == 0)
-		{
-			lista.cambiarPrimero(aux.darNodo(0));
-		}
-		else
-		{
-			previous.cambiarSiguiente(aux.darNodo(0));
-		}
-		if(last == lista.size()-1)
-		{
-			lista.cambiarUltimo(aux.darNodo(aux.size()-1));
-		}
-		else
-		{
-			aux.darNodo(aux.size() - 1).cambiarSiguiente(secondPart.darSiguiente());
 		}
 	}
 

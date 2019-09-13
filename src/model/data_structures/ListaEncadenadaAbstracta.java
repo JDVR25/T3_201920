@@ -6,7 +6,7 @@ import java.util.Iterator;
  * Clase que contiene lo com�n entre las listas encadenadas.
  * @param <E> Elemento que se almacenar� en la lista, el elemento debe ser �nicamente identificado.
  */
-public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implements IEstructura<E>
+public abstract class ListaEncadenadaAbstracta<E> implements IEstructura<E>
 {
 
 
@@ -171,18 +171,6 @@ public abstract class ListaEncadenadaAbstracta<E extends Comparable<E>> implemen
 	{
 		primerNodo = null;
 		cantidadElementos = 0;
-	}
-
-	//Solo funciona si el ultimo nodo permanece igual
-	public void cambiarPrimero(Nodo<E> nPrimero)
-	{
-		primerNodo = nPrimero;
-	}
-
-	//Solo funciona si el primer nodo permanece igual
-	public void cambiarUltimo(Nodo<E> nUltimo)
-	{
-		ultimoNodo = nUltimo;
 	}
 
 	//Codigo basado en lo desarrollado en el ejercicio de nivel 9 de APO 2 (Honores) 201910

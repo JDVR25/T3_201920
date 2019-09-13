@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ListaSencillamenteEncadenada<E extends Comparable<E>> extends ListaEncadenadaAbstracta<E>
+public class ListaSencillamenteEncadenada<E> extends ListaEncadenadaAbstracta<E>
 {
 
 	/**
@@ -46,7 +46,7 @@ public class ListaSencillamenteEncadenada<E extends Comparable<E>> extends Lista
 	public void add(int index, E elemento) 
 	{
 		Nodo<E> nuevo = new Nodo<E>(elemento);
-		if(index < 0 || index >= size())
+		if(index < 0 || index > size())
 		{
 			throw new IndexOutOfBoundsException();
 		}
@@ -103,10 +103,11 @@ public class ListaSencillamenteEncadenada<E extends Comparable<E>> extends Lista
 				respuesta = true;
 				cantidadElementos--;
 			}
-			if(ultimoNodo.darElemento().equals(elemento))
+			else if(ultimoNodo.darElemento().equals(elemento))
 			{
 				ultimoNodo = darNodo(cantidadElementos - 2);
 				ultimoNodo.cambiarSiguiente(null);
+				respuesta = true;
 				cantidadElementos--;
 			}
 			else

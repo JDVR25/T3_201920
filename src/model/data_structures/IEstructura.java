@@ -1,6 +1,6 @@
 package model.data_structures;
 
-public interface IEstructura<E extends Comparable<E>> extends Iterable<E>
+public interface IEstructura<E> extends Iterable<E>
 {
 	public int size();
 
